@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[ahmsec]]></title>
+  <link href="http://ahmsec.github.io/atom.xml" rel="self"/>
+  <link href="http://ahmsec.github.io/"/>
+  <updated>2016-06-24T07:18:34-07:00</updated>
+  <id>http://ahmsec.github.io/</id>
+  <author>
+    <name><![CDATA[Ahmad Khan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[First Post!]]></title>
+    <link href="http://ahmsec.github.io/blog/2016/06/24/first-post/"/>
+    <updated>2016-06-24T07:15:45-07:00</updated>
+    <id>http://ahmsec.github.io/blog/2016/06/24/first-post</id>
+    <content type="html"><![CDATA[<p>I know you&rsquo;ve been waiting eagerly, but it&rsquo;s finally here: my own personal blog! &hellip; Jk, I can hear the crickets chirping. This is intended to be an informal space for me to write about topics of interest. Mostly technical posts about what I&rsquo;m learning in &ldquo;cyber&rdquo; security (to use the current vernacular). Perhaps other topics as well. If future generations come across these posts and benefit, that will be great!</p>
+]]></content>
+  </entry>
+  
+</feed>
