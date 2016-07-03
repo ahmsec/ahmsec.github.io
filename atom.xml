@@ -4,7 +4,7 @@
   <title><![CDATA[ahmsec]]></title>
   <link href="http://ahmsec.github.io/atom.xml" rel="self"/>
   <link href="http://ahmsec.github.io/"/>
-  <updated>2016-06-24T07:31:14-07:00</updated>
+  <updated>2016-07-03T18:32:57-05:00</updated>
   <id>http://ahmsec.github.io/</id>
   <author>
     <name><![CDATA[Ahmad Khan]]></name>
@@ -14,9 +14,48 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Custom Headers as CSRF Defense]]></title>
+    <link href="http://ahmsec.github.io/blog/2016/07/03/custom-headers-as-csrf-defense/"/>
+    <updated>2016-07-03T18:18:01-05:00</updated>
+    <id>http://ahmsec.github.io/blog/2016/07/03/custom-headers-as-csrf-defense</id>
+    <content type="html"><![CDATA[<p>CSRF is a prevalent and well-known vulnerability that affects web applications. The common way to protect against CSRF is to require anti-CSRF tokens on state-modifying requests. For defense in depth, you can add an extra layer of security by additionally requiring custom headers. This can mitigate scenarios where anti-CSRF tokens are leaked (something not unheard of).</p>
+
+<h3>Simple vs Preflighted Requests</h3>
+
+<p>The Mozilla <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">article</a> on CORS does a nice job of explaining the difference between &ldquo;simple&rdquo; and &ldquo;preflighted&rdquo; requests.</p>
+
+<ul>
+<li><p><strong>Simple requests</strong> are sent by traditional mechanisms on the web, such as GETs made by <code>&lt;img&gt;</code> tags or POSTs made by HTML forms. The browser will always send them cross-origin, and will always pass along session cookies. This behavior is what makes CSRF possible.</p></li>
+<li><p><strong>Preflighted requests</strong> are requests that either contain custom headers or use methods other than GET, POST, or HEAD. Browsers will refuse to send these requests cross-origin unless the server explicitly allows it. To check this permission, browsers will send a &ldquo;pre-flight&rdquo; OPTIONS request before sending the actual request, and the server has to reply with the appropriate CORS headers. If the server doesn&rsquo;t, the actual request is never sent.</p></li>
+</ul>
+
+
+<p> Note the difference: simple requests are always sent cross-origin, even though Same-Origin Policy blocks the responses. When preflighted, the request isn&rsquo;t even sent in the first place.</p>
+
+<h3>Preflighted Requests and CSRF</h3>
+
+<p>If a resource requires a non-standard header or method, it won&rsquo;t be sent cross-origin (unless the victim domain for some reason whitelists the attacker domain). Since the request is never sent, CSRF attacks are blocked.</p>
+
+<h3>Bypassing Custom Header Restrictions</h3>
+
+<p>While requiring custom headers is a useful layer of CSRF defense, it shouldn&rsquo;t be the only one. Up until March 2015, Abode Flash had a vulnerability that allowed you to send custom headers cross-origin. Here are two well-written posts describing the technique:</p>
+
+<ul>
+<li> <a href="http://lists.webappsec.org/pipermail/websecurity_lists.webappsec.org/2011-February/007533.html">http://lists.webappsec.org/pipermail/websecurity_lists.webappsec.org/2011-February/007533.html</a></li>
+<li> <a href="http://www.appsecweekly.com/flash-same-origin-policy-bypass-with-307/">http://www.appsecweekly.com/flash-same-origin-policy-bypass-with-307/</a></li>
+</ul>
+
+
+<h3>Conclusion</h3>
+
+<p>Consider requiring custom headers on your sensitive state-modifying requests. For example, you can require an X-Requested-With header on AJAX calls and refuse to honor those that don&rsquo;t include it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[First Post!]]></title>
     <link href="http://ahmsec.github.io/blog/2016/06/24/first-post/"/>
-    <updated>2016-06-24T07:15:45-07:00</updated>
+    <updated>2016-06-24T09:15:45-05:00</updated>
     <id>http://ahmsec.github.io/blog/2016/06/24/first-post</id>
     <content type="html"><![CDATA[<p>I know you&rsquo;ve been waiting eagerly, but it&rsquo;s finally here: my own personal blog! &hellip; Jk, I can hear the crickets chirping. This is intended to be an informal space for me to write about topics of interest. Mostly technical posts about what I&rsquo;m learning in &ldquo;cyber&rdquo; security (to use the current vernacular). Perhaps other topics as well. If future generations come across these posts and benefit, that will be great!</p>
 ]]></content>
