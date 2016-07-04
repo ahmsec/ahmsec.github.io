@@ -4,7 +4,7 @@
   <title><![CDATA[ahmsec]]></title>
   <link href="http://ahmsec.github.io/atom.xml" rel="self"/>
   <link href="http://ahmsec.github.io/"/>
-  <updated>2016-07-03T19:29:54-05:00</updated>
+  <updated>2016-07-03T19:50:32-05:00</updated>
   <id>http://ahmsec.github.io/</id>
   <author>
     <name><![CDATA[Ahmad Khan]]></name>
@@ -38,7 +38,7 @@
 
 <h3>Bypassing Custom Header Restrictions</h3>
 
-<p>While requiring custom headers is a useful layer of CSRF defense, it shouldn&rsquo;t be the only one. Up until March 2015, Abode Flash had a vulnerability that allowed you to send custom headers cross-origin. Here are two well-written posts describing the technique:</p>
+<p>While requiring custom headers is a useful layer of CSRF defense, it shouldn&rsquo;t be the only one. Up until March 2015, Adobe Flash had a vulnerability that allowed you to send custom headers cross-origin. Here are two well-written posts describing the technique:</p>
 
 <ul>
 <li> <a href="http://lists.webappsec.org/pipermail/websecurity_lists.webappsec.org/2011-February/007533.html">http://lists.webappsec.org/pipermail/websecurity_lists.webappsec.org/2011-February/007533.html</a></li>
