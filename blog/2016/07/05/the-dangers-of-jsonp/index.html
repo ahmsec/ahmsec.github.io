@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>ahmsec</title>
+  <title>The Dangers of JSONP - ahmsec</title>
   <meta name="author" content="Ahmad Khan">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ahmsec.github.io/">
+  <link rel="canonical" href="http://ahmsec.github.io/blog/2016/07/05/the-dangers-of-jsonp/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="ahmsec" type="application/atom+xml">
@@ -75,15 +75,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2016/07/05/the-dangers-of-jsonp/">The Dangers of JSONP</a></h1>
+      <h1 class="entry-title">The Dangers of JSONP</h1>
     
     
       <p class="meta">
@@ -94,15 +91,15 @@
 
 <time class='entry-date' datetime='2016-07-05T16:34:03-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:34 pm</span></time>
         
-           | <a href="/blog/2016/07/05/the-dangers-of-jsonp/#disqus_thread"
-             data-disqus-identifier="http://ahmsec.github.io/blog/2016/07/05/the-dangers-of-jsonp/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ahmsec.github.io">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>This post is about how I learned of JSONP as an attack vector. This isn&rsquo;t a new vulnerability, but it&rsquo;s just nice that I discovered it on my own.</p>
+<div class="entry-content"><p>This post is about how I learned of JSONP as an attack vector. This isn&rsquo;t a new vulnerability, but it&rsquo;s just nice that I discovered it on my own.</p>
 
 <h3>A note on Same-Origin Policy</h3>
 
@@ -159,112 +156,50 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
 
 <p>Slightly related but maybe for another day: <a href="http://haacked.com/archive/2009/06/25/json-hijacking.aspx/">JSON Hijacking</a>. In conclusion, do not return sensitive data wrapped in JavaScript functions or arrays.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/07/03/custom-headers-as-csrf-defense/">Custom Headers as CSRF Defense</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-07-03T18:18:01-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2016</span></span> <span class='time'>6:18 pm</span></time>
-        
-           | <a href="/blog/2016/07/03/custom-headers-as-csrf-defense/#disqus_thread"
-             data-disqus-identifier="http://ahmsec.github.io/blog/2016/07/03/custom-headers-as-csrf-defense/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>CSRF is a prevalent and well-known vulnerability that affects web applications. The common way to protect against CSRF is to require anti-CSRF tokens on state-modifying requests. For defense in depth, you can add an extra layer of security by additionally requiring custom headers. This can mitigate scenarios where anti-CSRF tokens are leaked (something not unheard of).</p>
-
-<h3>Simple vs Preflighted Requests</h3>
-
-<p>The Mozilla <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">article</a> on CORS does a nice job of explaining the difference between &ldquo;simple&rdquo; and &ldquo;preflighted&rdquo; requests.</p>
-
-<ul>
-<li><p><strong>Simple requests</strong> are sent by traditional mechanisms on the web, such as GETs made by <code>&lt;img&gt;</code> tags or POSTs made by HTML forms. The browser will always send them cross-origin, and will always pass along session cookies. This behavior is what makes CSRF possible.</p></li>
-<li><p><strong>Preflighted requests</strong> are requests that either contain custom headers or use methods other than GET, POST, or HEAD. Browsers will refuse to send these requests cross-origin unless the server explicitly allows it. To check this permission, browsers will send a &ldquo;pre-flight&rdquo; OPTIONS request before sending the actual request, and the server has to reply with the appropriate CORS headers. If the server doesn&rsquo;t, the actual request is never sent.</p></li>
-</ul>
-
-
-<p> Note the difference: simple requests are always sent cross-origin, even though Same-Origin Policy blocks the responses. When preflighted, the request isn&rsquo;t even sent in the first place.</p>
-
-<h3>Preflighted Requests and CSRF</h3>
-
-<p>If a resource requires a non-standard header or method, it won&rsquo;t be sent cross-origin (unless the victim domain for some reason whitelists the attacker domain). Since the request is never sent, CSRF attacks are blocked.</p>
-
-<h3>Bypassing Custom Header Restrictions</h3>
-
-<p>While requiring custom headers is a useful layer of CSRF defense, it shouldn&rsquo;t be the only one. Up until March 2015, Adobe Flash had a vulnerability that allowed you to send custom headers cross-origin. Here are two well-written posts describing the technique:</p>
-
-<ul>
-<li> <a href="http://lists.webappsec.org/pipermail/websecurity_lists.webappsec.org/2011-February/007533.html">http://lists.webappsec.org/pipermail/websecurity_lists.webappsec.org/2011-February/007533.html</a></li>
-<li> <a href="http://www.appsecweekly.com/flash-same-origin-policy-bypass-with-307/">http://www.appsecweekly.com/flash-same-origin-policy-bypass-with-307/</a></li>
-</ul>
-
-
-<h3>Conclusion</h3>
-
-<p>Consider requiring custom headers on your sensitive state-modifying requests. For example, you can require an X-Requested-With header on AJAX calls and refuse to honor those that don&rsquo;t include it.</p>
-</div>
-  
   
 
+<span class="byline author vcard">Posted by <span class="fn">Ahmad Khan</span></span>
 
-    </article>
-  
-  
-    <article>
       
-  <header>
+
+
+
+
+<time class='entry-date' datetime='2016-07-05T16:34:03-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:34 pm</span></time>
+      
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2016/06/24/first-post/">First Post!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-24T09:15:45-05:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>9:15 am</span></time>
-        
-           | <a href="/blog/2016/06/24/first-post/#disqus_thread"
-             data-disqus-identifier="http://ahmsec.github.io/blog/2016/06/24/first-post/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I know you&rsquo;ve been waiting eagerly, but it&rsquo;s finally here: my own personal blog! &hellip; Jk, I can hear the crickets chirping. This is intended to be an informal space for me to write about topics of interest. Mostly technical posts about what I&rsquo;m learning in &ldquo;cyber&rdquo; security (to use the current vernacular). Perhaps other topics as well. If future generations come across these posts and benefit, that will be great!</p>
+      <div class="sharing">
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/07/03/custom-headers-as-csrf-defense/" title="Previous Post: Custom Headers as CSRF Defense">&laquo; Custom Headers as CSRF Defense</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -293,6 +228,7 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -308,7 +244,10 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
       var disqus_shortname = 'ahmsec';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = '/blog/2016/07/05/the-dangers-of-jsonp/';
+        var disqus_url = 'http://ahmsec.github.io/blog/2016/07/05/the-dangers-of-jsonp/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
