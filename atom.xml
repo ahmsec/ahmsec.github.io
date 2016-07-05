@@ -4,7 +4,7 @@
   <title><![CDATA[ahmsec]]></title>
   <link href="http://ahmsec.github.io/atom.xml" rel="self"/>
   <link href="http://ahmsec.github.io/"/>
-  <updated>2016-07-05T16:34:45-05:00</updated>
+  <updated>2016-07-05T16:40:10-05:00</updated>
   <id>http://ahmsec.github.io/</id>
   <author>
     <name><![CDATA[Ahmad Khan]]></name>
@@ -73,7 +73,7 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
 
 <p>JSONP effectively disables Same-Origin Policy for a resource. So be cautious of using it with private data. Instead, use CORS, which gives you fine-grained and securely designed control over cross-origin sharing.</p>
 
-<p>Slightly related but maybe for another day: <a href="http://haacked.com/archive/2009/06/25/json-hijacking.aspx/">JSON Hijacking</a>. In conclusion, do not return sensitive data wrapped in JavaScript functions or arrays.</p>
+<p>A slightly related vulnerability is <a href="http://haacked.com/archive/2009/06/25/json-hijacking.aspx/">JSON Hijacking</a>. In conclusion, do not return sensitive data wrapped in JavaScript functions or arrays.</p>
 ]]></content>
   </entry>
   
