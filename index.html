@@ -118,7 +118,7 @@
 
 <p>All of this can be automated for your exploit. A non-intuitive step in this attack scenario is perhaps #5. How could a non-SSL response possibly overwrite cookies that have the ‘secure’ flag and that were set under SSL? That unfortunately is allowed by design and is how the web works today. Here’s an article that describes the issue: <a href="http://scarybeastsecurity.blogspot.com/2008/11/cookie-forcing.html.">http://scarybeastsecurity.blogspot.com/2008/11/cookie-forcing.html.</a></p>
 
-<p>One way to protect against this scenario is to use HSTS. However, you have to make sure that every single subdomain has HSTS, because any child subdomain can be used to set cookies for the top-level parent domain, and those cookies will subsequently be sent with requests to every subdomain. You also have make sure you don’t have users on browsers without HSTS support, such as IE &lt; v11.</p>
+<p>One way to protect against this scenario is to use HSTS. However, you have to make sure that every single subdomain has HSTS, because any child subdomain can be used to set cookies for the top-level parent domain, and those cookies will subsequently be sent with requests to every subdomain. You also have make sure you don’t have users on browsers without <a href="http://caniuse.com/#feat=stricttransportsecurity">HSTS support</a>, such as IE &lt; v11.</p>
 
 <p>A few takeaways:</p>
 
