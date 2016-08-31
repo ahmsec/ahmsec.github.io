@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://ahmsec.github.io/blog/2016/08/31/csrf-double-submit-cookies-insufficient-against-mitm/</loc>
+<lastmod>2016-08-31T08:38:05-07:00</lastmod>
+</url>
+<url>
 <loc>http://ahmsec.github.io/blog/2016/07/05/the-dangers-of-jsonp/</loc>
 <lastmod>2016-07-05T14:34:03-07:00</lastmod>
 </url>

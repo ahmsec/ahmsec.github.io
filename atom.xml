@@ -4,7 +4,7 @@
   <title><![CDATA[ahmsec]]></title>
   <link href="http://ahmsec.github.io/atom.xml" rel="self"/>
   <link href="http://ahmsec.github.io/"/>
-  <updated>2016-07-10T23:39:57-07:00</updated>
+  <updated>2016-08-31T09:08:35-07:00</updated>
   <id>http://ahmsec.github.io/</id>
   <author>
     <name><![CDATA[Ahmad Khan]]></name>
@@ -12,6 +12,47 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CSRF: Double Submit Cookies Insufficient Against MitM]]></title>
+    <link href="http://ahmsec.github.io/blog/2016/08/31/csrf-double-submit-cookies-insufficient-against-mitm/"/>
+    <updated>2016-08-31T08:38:05-07:00</updated>
+    <id>http://ahmsec.github.io/blog/2016/08/31/csrf-double-submit-cookies-insufficient-against-mitm</id>
+    <content type="html"><![CDATA[<p>Suppose you’re at the latest hip coffee shop in town, enjoying their comfy chairs and high-speed wifi. You’re doing some confidential work using a relatively secure web application. The application always uses TLS, redirects HTTP requests back to HTTPS, and deploys <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29_Prevention_Cheat_Sheet#Double_Submit_Cookie">Double Submit Cookies</a> (with the ‘secure’ cookie flag) to protect from CSRF. Now suppose that the coffee shop staff becomes part of your threat model. Could they still launch CSRF attacks against you? After all, they can’t read TLS-encrypted traffic, so they can’t possibly steal CSRF tokens.</p>
+
+<p>It turns out that actually yes, given the scenario above, a man-in-the-middle (with your pick of malicious staff, rogue access point, or ARP poisoning) can defeat the Double Submit defense. And it’s a simple attack, not one that requires you to break TLS or WPA2. Here’s how it works:</p>
+
+<ol>
+<li>Victim conducts secret business on <a href="https://secret.example.com">https://secret.example.com</a> (MitM attacker can’t read this traffic.)</li>
+<li>Victim visits a non-SSL website like <a href="http://stackoverflow.com">http://stackoverflow.com</a> or <a href="http://www.cnn.com">http://www.cnn.com</a> (MitM can read and modify this traffic.)</li>
+<li>MitM injects <code>&lt;img src=”http://secret.example.com/non-existent.png”/&gt;</code> into the response from (2). Note that the img tag’s protocol is HTTP and not HTTPS.</li>
+<li>Victim’s browser receives the image tag, and sends a secondary non-SSL request to <a href="http://secret.example.com/non-existent.png.">http://secret.example.com/non-existent.png.</a> (CSRF cookie not sent because of secure flag.)</li>
+<li>MitM intercepts the response from <a href="http://secret.example.com,">http://secret.example.com,</a> which could be a 301 redirect [1] or a 404 error, and injects a Set-Cookie header that overwrites the victim’s CSRF cookie with a known value. Details on how later.</li>
+<li>Since the attacker knows the CSRF cookie value, he or she can now trigger a request that includes the CSRF token in the body.</li>
+</ol>
+
+
+<p>All of this can be automated for your exploit. A non-intuitive step in this attack scenario is perhaps #5. How could a non-SSL response possibly overwrite cookies that have the ‘secure’ flag and that were set under SSL? That unfortunately is allowed by design and is how the web works today. Here’s an article that describes the issue: <a href="http://scarybeastsecurity.blogspot.com/2008/11/cookie-forcing.html.">http://scarybeastsecurity.blogspot.com/2008/11/cookie-forcing.html.</a></p>
+
+<p>One way to protect against this scenario is to use HSTS. However, you have to make sure that every single subdomain has HSTS, because any child subdomain can be used to set cookies for the top-level parent domain, and those cookies will subsequently be sent with requests to every subdomain. You also have make sure you don’t have users on browsers without HSTS support, such as IE &lt; v11.</p>
+
+<p>A few takeaways:</p>
+
+<ol>
+<li>Double Submit Cookies are a common way to protect against CSRF. They’re recommended by OWASP and used by several websites and frameworks. However, if you need to protect against MitM, you should consider a different defense.</li>
+<li>Cookies should be treated as untrusted and attacker-controlled input. Be careful of mistakes like allowing user-generated session cookies and not sanitizing cookie-sourced values for XSS.</li>
+</ol>
+
+
+<p>For further discussion on these topics, please see the following articles. <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - <a href="http://scarybeastsecurity.blogspot.com/2008/11/cookie-forcing.html">http://scarybeastsecurity.blogspot.com/2008/11/cookie-forcing.html</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://media.blackhat.com/eu-13/briefings/Lundeen/bh-eu-13-deputies-still-confused-lundeen-wp.pdf">https://media.blackhat.com/eu-13/briefings/Lundeen/bh-eu-13-deputies-still-confused-lundeen-wp.pdf</a></p>
+
+<hr />
+
+<p>[1] For a workaround to browsers’ aggressive caching of 301 redirects, see <a href="http://security.stackexchange.com/a/117138.">http://security.stackexchange.com/a/117138.</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[The Dangers of JSONP]]></title>
