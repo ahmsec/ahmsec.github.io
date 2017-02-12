@@ -92,7 +92,7 @@
 
 
 
-<time class='entry-date' datetime='2016-08-31T08:38:05-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2016</span></span> <span class='time'>8:38 am</span></time>
+<time class='entry-date' datetime='2016-08-31T10:38:05-05:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2016</span></span> <span class='time'>10:38 am</span></time>
         
            | <a href="/blog/2016/08/31/csrf-double-submit-cookies-insufficient-against-mitm/#disqus_thread"
              data-disqus-identifier="http://ahmsec.github.io/blog/2016/08/31/csrf-double-submit-cookies-insufficient-against-mitm/">Comments</a>
@@ -116,7 +116,7 @@
 </ol>
 
 
-<p>All of this can be automated for your exploit. A non-intuitive step in this attack scenario is perhaps #5. How could a non-SSL response possibly overwrite cookies that have the ‘secure’ flag and that were set under SSL? That unfortunately is allowed by design and is how the web works today. Here’s an article that describes the issue: <a href="http://scarybeastsecurity.blogspot.com/2008/11/cookie-forcing.html.">http://scarybeastsecurity.blogspot.com/2008/11/cookie-forcing.html.</a></p>
+<p>All of this can be automated for your exploit. A non-intuitive step in this attack scenario is perhaps #5. How could a non-SSL response possibly overwrite cookies that have the ‘secure’ flag and that were set under SSL? That unfortunately is allowed by design and is how the web works today. Here’s an article that describes the issue: <a href="http://scarybeastsecurity.blogspot.com/2008/11/cookie-forcing.html">http://scarybeastsecurity.blogspot.com/2008/11/cookie-forcing.html</a> .</p>
 
 <p>One way to protect against this scenario is to use HSTS. However, you have to make sure that every single subdomain has HSTS, because any child subdomain can be used to set cookies for the top-level parent domain, and those cookies will subsequently be sent with requests to every subdomain. You also have make sure you don’t have users on browsers without <a href="http://caniuse.com/#feat=stricttransportsecurity">HSTS support</a>, such as IE &lt; v11.</p>
 
@@ -156,7 +156,7 @@
 
 
 
-<time class='entry-date' datetime='2016-07-05T14:34:03-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>2:34 pm</span></time>
+<time class='entry-date' datetime='2016-07-05T16:34:03-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:34 pm</span></time>
         
            | <a href="/blog/2016/07/05/the-dangers-of-jsonp/#disqus_thread"
              data-disqus-identifier="http://ahmsec.github.io/blog/2016/07/05/the-dangers-of-jsonp/">Comments</a>
@@ -243,7 +243,7 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
 
 
 
-<time class='entry-date' datetime='2016-07-03T16:18:01-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2016</span></span> <span class='time'>4:18 pm</span></time>
+<time class='entry-date' datetime='2016-07-03T18:18:01-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2016</span></span> <span class='time'>6:18 pm</span></time>
         
            | <a href="/blog/2016/07/03/custom-headers-as-csrf-defense/#disqus_thread"
              data-disqus-identifier="http://ahmsec.github.io/blog/2016/07/03/custom-headers-as-csrf-defense/">Comments</a>
@@ -305,7 +305,7 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
 
 
 
-<time class='entry-date' datetime='2016-06-24T07:15:45-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:15 am</span></time>
+<time class='entry-date' datetime='2016-06-24T09:15:45-05:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>9:15 am</span></time>
         
            | <a href="/blog/2016/06/24/first-post/#disqus_thread"
              data-disqus-identifier="http://ahmsec.github.io/blog/2016/06/24/first-post/">Comments</a>
@@ -364,7 +364,7 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - Ahmad Khan -
+  Copyright &copy; 2017 - Ahmad Khan -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
