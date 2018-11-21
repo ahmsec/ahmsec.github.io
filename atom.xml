@@ -4,7 +4,7 @@
   <title><![CDATA[ahmsec]]></title>
   <link href="http://ahmsec.github.io/atom.xml" rel="self"/>
   <link href="http://ahmsec.github.io/"/>
-  <updated>2017-02-11T19:11:12-06:00</updated>
+  <updated>2018-11-21T09:28:56-08:00</updated>
   <id>http://ahmsec.github.io/</id>
   <author>
     <name><![CDATA[Ahmad Khan]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[CSRF: Double Submit Cookies Insufficient Against MitM]]></title>
     <link href="http://ahmsec.github.io/blog/2016/08/31/csrf-double-submit-cookies-insufficient-against-mitm/"/>
-    <updated>2016-08-31T10:38:05-05:00</updated>
+    <updated>2016-08-31T08:38:05-07:00</updated>
     <id>http://ahmsec.github.io/blog/2016/08/31/csrf-double-submit-cookies-insufficient-against-mitm</id>
     <content type="html"><![CDATA[<p>Suppose you’re at the latest hip coffee shop in town, enjoying their comfy chairs and high-speed wifi. You’re doing some confidential work using a relatively secure web application. The application always uses TLS, redirects HTTP requests back to HTTPS, and deploys <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29_Prevention_Cheat_Sheet#Double_Submit_Cookie">Double Submit Cookies</a> (with the ‘secure’ cookie flag) to protect from CSRF. Now suppose that the coffee shop staff becomes part of your threat model. Could they still launch CSRF attacks against you? After all, they can’t read TLS-encrypted traffic, so they can’t possibly steal CSRF tokens.</p>
 
@@ -121,7 +121,7 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
   <entry>
     <title type="html"><![CDATA[Custom Headers as CSRF Defense]]></title>
     <link href="http://ahmsec.github.io/blog/2016/07/03/custom-headers-as-csrf-defense/"/>
-    <updated>2016-07-03T18:18:01-05:00</updated>
+    <updated>2016-07-03T16:18:01-07:00</updated>
     <id>http://ahmsec.github.io/blog/2016/07/03/custom-headers-as-csrf-defense</id>
     <content type="html"><![CDATA[<p>CSRF is a prevalent and well-known vulnerability that affects web applications. The common way to protect against CSRF is to require anti-CSRF tokens on state-modifying requests. For defense in depth, you can add an extra layer of security by additionally requiring custom headers. This can mitigate scenarios where anti-CSRF tokens are somehow leaked (something I have seen happen).</p>
 
@@ -160,7 +160,7 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
   <entry>
     <title type="html"><![CDATA[First Post!]]></title>
     <link href="http://ahmsec.github.io/blog/2016/06/24/first-post/"/>
-    <updated>2016-06-24T09:15:45-05:00</updated>
+    <updated>2016-06-24T07:15:45-07:00</updated>
     <id>http://ahmsec.github.io/blog/2016/06/24/first-post</id>
     <content type="html"><![CDATA[<p>I know you&rsquo;ve been waiting eagerly, but it&rsquo;s finally here: my own personal blog! &hellip; Just kidding, I can hear the crickets chirping. This is intended to be an informal space for me to write about topics of interest. Mostly technical posts about what I&rsquo;m learning in &ldquo;cyber&rdquo; security (to use the current vernacular). Perhaps other topics as well. If future generations come across these posts and benefit, that will be great!</p>
 ]]></content>
