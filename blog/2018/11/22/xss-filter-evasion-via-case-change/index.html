@@ -90,7 +90,7 @@
 
 
 
-<time class='entry-date' datetime='2018-11-22T13:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2018</span></span> <span class='time'>1:00 pm</span></time>
+<time class='entry-date' datetime='2018-11-22T14:32:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2018</span></span> <span class='time'>2:32 pm</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://ahmsec.github.io">Comments</a>
@@ -108,7 +108,7 @@
 K (\u212a) to lower-case --&gt; k
 </code></pre>
 
-<p>This can help bypass XSS filters or blacklists. For example, the filter in the app below can be bypassed by <code>?name=&lt;ſcript src="/alert1.js"&gt;&lt;/script&gt;</code>.</p>
+<p>This can help bypass XSS filters and blacklists. For example, the filter in the app below can be bypassed by <code>?name=&lt;ſcript src="/alert1.js"&gt;&lt;/script&gt;</code>.</p>
 
 <figure class='code'><figcaption><span>vulnerable-app.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -139,7 +139,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>As usual, the best practice for XSS prevention is <a href="https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet">character encoding</a>.</p>
+<p>As usual, the best practice for XSS prevention is <a href="https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet">character encoding</a>. Blacklists are easily <a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet">bypassed</a>.</p>
 
 <p>Here is a quick script to enumerate characters affected by this behavior. Interestingly, it appears that Python 2 and 3 treat <code>İ (\u0130)</code> differently.</p>
 
@@ -190,7 +190,7 @@
 
 
 
-<time class='entry-date' datetime='2018-11-22T13:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2018</span></span> <span class='time'>1:00 pm</span></time>
+<time class='entry-date' datetime='2018-11-22T14:32:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2018</span></span> <span class='time'>2:32 pm</span></time>
       
 
 

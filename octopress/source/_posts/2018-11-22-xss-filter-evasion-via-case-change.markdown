@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "XSS Filter Evasion via Case Change"
-date: 2018-11-22 13:00:00 -0800
+date: 2018-11-22 14:32:00 -0800
 comments: true
 categories: 
 ---
@@ -12,7 +12,7 @@ categories:
     İ (\u0130) to lower-case --> i
     K (\u212a) to lower-case --> k
 
-This can help bypass XSS filters or blacklists. For example, the filter in the app below can be bypassed by `?name=<ſcript src="/alert1.js"></script>`. 
+This can help bypass XSS filters and blacklists. For example, the filter in the app below can be bypassed by `?name=<ſcript src="/alert1.js"></script>`. 
 
 ``` python vulnerable-app.py
 from flask import Flask, request, Response
@@ -30,7 +30,7 @@ def alert1():
     return 'alert(1)'
 ```
 
-As usual, the best practice for XSS prevention is [character encoding](https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet). 
+As usual, the best practice for XSS prevention is [character encoding](https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet). Blacklists are easily [bypassed](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet).
 
 Here is a quick script to enumerate characters affected by this behavior. Interestingly, it appears that Python 2 and 3 treat `İ (\u0130)` differently. 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[ahmsec]]></title>
   <link href="http://ahmsec.github.io/atom.xml" rel="self"/>
   <link href="http://ahmsec.github.io/"/>
-  <updated>2018-11-22T12:57:21-08:00</updated>
+  <updated>2018-11-22T14:32:12-08:00</updated>
   <id>http://ahmsec.github.io/</id>
   <author>
     <name><![CDATA[Ahmad Khan]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[XSS Filter Evasion via Case Change]]></title>
     <link href="http://ahmsec.github.io/blog/2018/11/22/xss-filter-evasion-via-case-change/"/>
-    <updated>2018-11-22T13:00:00-08:00</updated>
+    <updated>2018-11-22T14:32:00-08:00</updated>
     <id>http://ahmsec.github.io/blog/2018/11/22/xss-filter-evasion-via-case-change</id>
     <content type="html"><![CDATA[<p><a href="https://twitter.com/x00x90_/status/1060397253024727040">This</a> tweet describes an interesting behavior: certain non-ASCII characters map to ASCII characters when converted to upper- or lower-case. Specifically:</p>
 
@@ -26,7 +26,7 @@
 K (\u212a) to lower-case --&gt; k
 </code></pre>
 
-<p>This can help bypass XSS filters or blacklists. For example, the filter in the app below can be bypassed by <code>?name=&lt;ſcript src="http://ahmsec.github.io/alert1.js"&gt;&lt;/script&gt;</code>.</p>
+<p>This can help bypass XSS filters and blacklists. For example, the filter in the app below can be bypassed by <code>?name=&lt;ſcript src="http://ahmsec.github.io/alert1.js"&gt;&lt;/script&gt;</code>.</p>
 
 <figure class='code'><figcaption><span>vulnerable-app.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -57,7 +57,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>As usual, the best practice for XSS prevention is <a href="https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet">character encoding</a>.</p>
+<p>As usual, the best practice for XSS prevention is <a href="https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet">character encoding</a>. Blacklists are easily <a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet">bypassed</a>.</p>
 
 <p>Here is a quick script to enumerate characters affected by this behavior. Interestingly, it appears that Python 2 and 3 treat <code>İ (\u0130)</code> differently.</p>
 
