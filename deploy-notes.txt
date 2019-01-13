@@ -1,0 +1,7 @@
+cd octopress
+rake new_post['Post title']
+code octopress/source/_posts/2018-post-title.markdown
+rake generate
+rake preview
+cp octopress/source/_posts/2018-post-title.markdown ahmsec.github.io/octopress/source/_posts/2018-post-title.markdown
+cp -r octopress/public/ ahmsec.github.io/. #the trailing slash is important
