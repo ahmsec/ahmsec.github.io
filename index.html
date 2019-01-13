@@ -9,7 +9,7 @@
   <meta name="author" content="Ahmad Khan">
 
   
-  <meta name="description" content="This tweet describes an interesting behavior: certain non-ASCII characters map to ASCII characters when converted to upper- or lower-case. &hellip;">
+  <meta name="description" content="Here is a bug I reported to LastPass, copied below with some edits. They shipped a fix within 4 business days and paid out a $1k bounty. One takeaway &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,120 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2019/01/12/csrf-in-lastpass-website-client/">CSRF in LastPass Website Client</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2019-01-12T17:00:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2019</span></span> <span class='time'>5:00 pm</span></time>
+        
+           | <a href="/blog/2019/01/12/csrf-in-lastpass-website-client/#disqus_thread"
+             data-disqus-identifier="http://ahmsec.github.io/blog/2019/01/12/csrf-in-lastpass-website-client/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here is a bug I reported to LastPass, copied below with some edits. They shipped a fix within 4 business days and paid out a $1k bounty.</p>
+
+<p>One takeaway is the importance of defense-in-depth. While our development standards may prohibit sensitive tokens in URLs, it can still happen due to human error. We can mitigate this by adding a strict <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy">Referrer Policy</a> like <code>&lt;meta name="referrer" content="no-referrer"&gt;</code>.</p>
+
+<p>A second takeaway is the importance of secure defaults. In this scenario the top-level frame actually had an <code>origin</code> Referrer Policy. However, it did not prevent the vulnerability because the browser didn&rsquo;t <a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-delivery-nested">inherit</a> the policy to child iframes. A more secure default may be for browsers to inherit Referrer Policy to child iframes if they&rsquo;re on the same origin and don&rsquo;t specify their own policy.</p>
+
+<h2>LastPass Bug Report</h2>
+
+<h3>Summary</h3>
+
+<p>The website client (<a href="https://lastpass.com">https://lastpass.com</a>) leaks CSRF tokens to saved websites. This happens because the iframe containing &ldquo;Launch&rdquo; buttons has the CSRF token embedded in the <code>src</code> attribute.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;iframe</span> <span class="na">id=</span><span class="s">&quot;newvault&quot;</span> <span class="na">style=</span><span class="s">&quot;border: 0px; width: 100%; height: 100%;&quot;</span> <span class="na">src=</span><span class="s">&quot;newvault/vault.php?noscript=1&amp;amp;fromindex=1&amp;amp;ac=1&amp;amp;lpnorefresh=1&amp;amp;fromwebsite=1&amp;amp;newvault=1&amp;amp;nk=1&amp;amp;xmlerr=1&amp;amp;token=[redacted]&quot;</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This vulnerability affects Firefox and potentially other browsers, but does not appear to affect Chrome (not sure why, could be browser referrer policy inheritance or different app codebases).</p>
+
+<h3>Impact</h3>
+
+<p>A malicious webpage can make various state-changing requests to LastPass, and LastPass will honor them.</p>
+
+<p>Affected endpoints include changing password hint and changing master password (only resulting in account lockout, not credential leak).</p>
+
+<p>There are likely to be more affected endpoints.</p>
+
+<h3>Reproduction steps</h3>
+
+<ol>
+<li>Log into the Firefox website client on <a href="https://lastpass.com.">https://lastpass.com.</a></li>
+<li>Add a new site and set the URL to <a href="https://www.example.com.">https://www.example.com.</a></li>
+<li>Click &lsquo;Launch&rsquo; on the new site.</li>
+<li>On the launched page, open your browser dev console and type <code>document.referrer</code>.</li>
+<li>Notice the LastPass CSRF token included in the referrer. This is readable by target sites.</li>
+</ol>
+
+
+<p>If anything doesn&rsquo;t work, be sure you set the target to an HTTPS site, used Firefox, and used the website client and not the extension.</p>
+
+<h3>Proof of concept</h3>
+
+<ol>
+<li>Use Firefox to log into <a href="https://lastpass.com.">https://lastpass.com.</a></li>
+<li>Add a new site and set the URL to <a href="https://poc.ahmsec.io/3302aa361e2a44ca9bb82d66bfedd243/lastpass-csrf.html">https://poc.ahmsec.io/3302aa361e2a44ca9bb82d66bfedd243/lastpass-csrf.html</a>.</li>
+<li>Click &lsquo;Launch&rsquo; on the newly added site.</li>
+<li>Click &lsquo;Change my password hint&rsquo;. <em>A real exploit would do this step silently without prompt.</em></li>
+<li>Check your password hint and notice that it changed to &ldquo;i-got-hacked&rdquo;.</li>
+</ol>
+
+
+<h3>Potential attack scenarios</h3>
+
+<ul>
+<li>Victim generates &amp; saves creds for some shady one-off online store. Online store is either compromised or malicious. When victim launches site from LastPass, the site can carry out CSRF attacks against victim&rsquo;s LastPass.</li>
+<li>Malicious user shares site with victim on LastPass. Victim launches site to check it out, and is attacked via CSRF.</li>
+</ul>
+
+
+<h3>Suggested mitigations</h3>
+
+<ol>
+<li>Send CSRF tokens in request body or header instead of URL parameter.
+
+<ul>
+<li>URL parameters have higher risk of leakage via referrers and logs.</li>
+</ul>
+</li>
+<li>Add a <code>&lt;meta name="referrer" content="no-referrer"&gt;</code> referrer policy to <a href="https://lastpass.com/newvault/vault.php.">https://lastpass.com/newvault/vault.php.</a>
+
+<ul>
+<li>This policy is included on the parent frame, but not in the vault.php nested iframe.</li>
+</ul>
+</li>
+<li>On highly sensitive endpoints, <em>require</em> password hash in addition to CSRF token.
+
+<ul>
+<li>E.g. while password changes do require entering old password, the final POST request can be made without it. (See sample request.)</li>
+</ul>
+</li>
+<li>Restrict CSRF tokens to sessions. Do not let them be reused across sessions.</li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -443,6 +557,10 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2019/01/12/csrf-in-lastpass-website-client/">CSRF in LastPass Website Client</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/11/22/xss-filter-evasion-via-case-change/">XSS Filter Evasion via Case Change</a>
       </li>
     
@@ -458,10 +576,6 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
         <a href="/blog/2016/07/03/custom-headers-as-csrf-defense/">Custom Headers as CSRF Defense</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2016/06/24/first-post/">First Post!</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -475,7 +589,7 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2018 - Ahmad Khan -
+  Copyright &copy; 2019 - Ahmad Khan -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
