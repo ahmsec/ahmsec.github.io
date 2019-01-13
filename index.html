@@ -84,7 +84,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2019/01/12/csrf-in-lastpass-website-client/">CSRF in LastPass Website Client</a></h1>
+      <h1 class="entry-title"><a href="/blog/2019/01/12/csrf-token-leak-in-lastpass-website-client/">CSRF Token Leak in LastPass Website Client</a></h1>
     
     
       <p class="meta">
@@ -95,8 +95,8 @@
 
 <time class='entry-date' datetime='2019-01-12T17:00:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2019</span></span> <span class='time'>5:00 pm</span></time>
         
-           | <a href="/blog/2019/01/12/csrf-in-lastpass-website-client/#disqus_thread"
-             data-disqus-identifier="http://ahmsec.github.io/blog/2019/01/12/csrf-in-lastpass-website-client/">Comments</a>
+           | <a href="/blog/2019/01/12/csrf-token-leak-in-lastpass-website-client/#disqus_thread"
+             data-disqus-identifier="http://ahmsec.github.io/blog/2019/01/12/csrf-token-leak-in-lastpass-website-client/">Comments</a>
         
       </p>
     
@@ -105,9 +105,9 @@
 
   <div class="entry-content"><p>Here is a bug I reported to LastPass, copied below with some edits. They shipped a fix within 4 business days and paid out a $1k bounty.</p>
 
-<p>One takeaway is the importance of defense-in-depth. While our development standards may prohibit sensitive tokens in URLs, it can still happen due to human error. We can mitigate this by adding a strict <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy">Referrer Policy</a> like <code>&lt;meta name="referrer" content="no-referrer"&gt;</code>.</p>
+<p>One takeaway is the need for defense-in-depth. While our development standards may prohibit sensitive tokens in URLs, it can still happen due to human error. We can mitigate this by adding a strict <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy">Referrer Policy</a> like <code>&lt;meta name="referrer" content="no-referrer"&gt;</code>.</p>
 
-<p>A second takeaway is the importance of secure defaults. In this scenario the top-level frame actually had an <code>origin</code> Referrer Policy. However, it did not prevent the vulnerability because the browser didn&rsquo;t <a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-delivery-nested">inherit</a> the policy to child iframes. A more secure default may be for browsers to inherit Referrer Policy to child iframes if they&rsquo;re on the same origin and don&rsquo;t specify their own policy.</p>
+<p>A second takeaway is the importance of secure defaults. In this scenario the top-level frame actually had an <code>origin</code> Referrer Policy. However, it did not prevent the vulnerability because the browser didn&rsquo;t <a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-delivery-nested">inherit</a> the policy to child iframes. A more secure default could perhaps be for browsers to inherit Referrer Policy to child iframes if they&rsquo;re on the same origin and don&rsquo;t specify their own policy.</p>
 
 <h2>LastPass Bug Report</h2>
 
@@ -557,7 +557,7 @@ Response: <code>AAAAAAAA({"key1":"data1", "key2":"data2", ...})</code></p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2019/01/12/csrf-in-lastpass-website-client/">CSRF in LastPass Website Client</a>
+        <a href="/blog/2019/01/12/csrf-token-leak-in-lastpass-website-client/">CSRF Token Leak in LastPass Website Client</a>
       </li>
     
       <li class="post">
