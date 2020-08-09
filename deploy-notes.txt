@@ -1,6 +1,6 @@
 cd octopress
 rake new_post['Post title']
-code octopress/source/_posts/2018-post-title.markdown
+code source/_posts/2018-post-title.markdown
 rake generate
 rake preview
 cd .. 
