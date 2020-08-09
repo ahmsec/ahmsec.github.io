@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://ahmsec.github.io/blog/2020/08/09/risks-of-clicking-links/</loc>
+<lastmod>2020-08-09T09:20:00-07:00</lastmod>
+</url>
+<url>
 <loc>http://ahmsec.github.io/blog/2019/01/12/csrf-token-leak-in-lastpass-website-client/</loc>
 <lastmod>2019-01-12T17:00:00-08:00</lastmod>
 </url>
