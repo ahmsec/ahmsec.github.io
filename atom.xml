@@ -4,7 +4,7 @@
   <title><![CDATA[ahmsec]]></title>
   <link href="http://ahmsec.github.io/atom.xml" rel="self"/>
   <link href="http://ahmsec.github.io/"/>
-  <updated>2020-08-09T09:17:49-07:00</updated>
+  <updated>2020-08-09T11:52:47-07:00</updated>
   <id>http://ahmsec.github.io/</id>
   <author>
     <name><![CDATA[Ahmad Khan]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Risks of Clicking Links]]></title>
     <link href="http://ahmsec.github.io/blog/2020/08/09/risks-of-clicking-links/"/>
-    <updated>2020-08-09T09:20:00-07:00</updated>
+    <updated>2020-08-09T09:21:00-07:00</updated>
     <id>http://ahmsec.github.io/blog/2020/08/09/risks-of-clicking-links</id>
     <content type="html"><![CDATA[<p>We&rsquo;re often advised not to click untrusted links, but less often told why. This post will outline a few things that can go wrong when you simply click a link.</p>
 
