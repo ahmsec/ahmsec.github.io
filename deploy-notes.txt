@@ -6,3 +6,4 @@ rake preview
 cd .. 
 rsync -av --delete octopress/source/_posts/ ahmsec.github.io/octopress/source/_posts/
 rsync -av --delete --exclude=octopress/ --exclude=.git/ --exclude=CNAME --exclude=deploy-notes.txt octopress/public/ ahmsec.github.io/
+#git add new files in ahmsec.github.io/
