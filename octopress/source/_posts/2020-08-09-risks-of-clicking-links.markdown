@@ -73,7 +73,7 @@ Examples:
 ## Mitigations
 Given all that can go wrong, what can you do about it?
 
-It comes down to basic security hygiene. Use U2F/2FA, use password managers, keep all software up-to-date, avoid installing unnecessary software, limit app permissions to what is necessary, log out of accounts you're not using, and put untrusted "smart" devices on separate network segments. 
+It comes down to basic security hygiene. Use U2F/2FA, use a password manager, keep all software up-to-date, avoid installing unnecessary software, limit app permissions to what is necessary, log out of accounts you're not using, and put untrusted "smart" devices on separate network segments. 
 
 To the extent practical, exercise caution with unsolicited links. Check if the domain is one you trust. Be careful of what you enter, approve, download, or run.
 

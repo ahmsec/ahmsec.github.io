@@ -4,7 +4,7 @@
   <title><![CDATA[ahmsec]]></title>
   <link href="http://ahmsec.github.io/atom.xml" rel="self"/>
   <link href="http://ahmsec.github.io/"/>
-  <updated>2020-08-09T11:52:47-07:00</updated>
+  <updated>2020-08-09T12:00:20-07:00</updated>
   <id>http://ahmsec.github.io/</id>
   <author>
     <name><![CDATA[Ahmad Khan]]></name>
@@ -113,7 +113,7 @@
 
 <p>Given all that can go wrong, what can you do about it?</p>
 
-<p>It comes down to basic security hygiene. Use U2F/2FA, use password managers, keep all software up-to-date, avoid installing unnecessary software, limit app permissions to what is necessary, log out of accounts you&rsquo;re not using, and put untrusted &ldquo;smart&rdquo; devices on separate network segments.</p>
+<p>It comes down to basic security hygiene. Use U2F/2FA, use a password manager, keep all software up-to-date, avoid installing unnecessary software, limit app permissions to what is necessary, log out of accounts you&rsquo;re not using, and put untrusted &ldquo;smart&rdquo; devices on separate network segments.</p>
 
 <p>To the extent practical, exercise caution with unsolicited links. Check if the domain is one you trust. Be careful of what you enter, approve, download, or run.</p>
 
