@@ -75,6 +75,6 @@ Given all that can go wrong, what can you do about it?
 
 It comes down to basic security hygiene. Use U2F/2FA, use a password manager, keep all software up-to-date, avoid installing unnecessary software, limit app permissions to what is necessary, log out of accounts you're not using, and put untrusted "smart" devices on separate network segments. 
 
-To the extent practical, exercise caution with unsolicited links. Check if the domain is one you trust. Be careful of what you enter, approve, download, or run.
+To the extent practical, exercise caution with links, especially if unsolicited. Check if the domain is one you trust or expect. Be careful of what you enter, approve, download, or run.
 
 Finally, security practitioners need to ensure that their systems and environments are resilient to users clicking on malicious links. It is unreasonable to expect users never to click on malicious links. Typical internet usage involves clicking many links, and good phishing scenarios are difficult to distinguish from legitimate scenarios.
