@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "RCE in `vscode-arduino` extension"
+title: "RCE in vscode-arduino Extension"
 date: 2025-11-30 08:30:00 -0600
 comments: true
 categories: 
