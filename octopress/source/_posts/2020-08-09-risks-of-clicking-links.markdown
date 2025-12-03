@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Risks of clicking links"
+title: "Risks of Clicking Links"
 date: 2020-08-09 09:21:00 -0700
 comments: true
 categories: 

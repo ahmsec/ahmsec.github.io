@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CSRF: Double Submit Cookies insufficient against MitM"
+title: "CSRF: Double Submit Cookies Insufficient Against MitM"
 date: 2016-08-31 08:38:05 -0700
 comments: true
 categories: 
